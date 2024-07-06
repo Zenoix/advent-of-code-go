@@ -15,7 +15,7 @@ const inputUrlTemplate = "https://adventofcode.com/%d/day/%d/input"
 // the cookie of the Get request.
 const session = "CHANGE ME"
 
-func GetInput(year, day int) []string {
+func GetInput(year, day int) string {
 	url := fmt.Sprintf(inputUrlTemplate, year, day)
 
 	client := &http.Client{}
@@ -47,7 +47,7 @@ func GetInput(year, day int) []string {
 		log.Fatal(err)
 	}
 
-	stringBody := strings.TrimRight(string(body), "\n")
+	output := strings.TrimRight(string(body), "\n")
 
-	return strings.Split(stringBody, "\n")
+	return output
 }
