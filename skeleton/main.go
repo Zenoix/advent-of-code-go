@@ -6,9 +6,10 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"runtime"
 	"text/template"
 	"time"
+
+	"github.com/zenoix/advent-of-code-go/utils"
 )
 
 const startMessagePrefix = "Creating"
@@ -17,18 +18,8 @@ const endMessagePrefix = "Created"
 
 const messageFormatString = "skeleton for year %d day %d in %s"
 
-func getRootDir() (rootPath string) {
-	_, filename, _, ok := runtime.Caller(1)
-	if !ok {
-		panic("Could not find root directory")
-	}
-
-	rootPath = filepath.Join(filepath.Dir(filename), "..")
-	return
-}
-
 func checkFileDoesNotExist(path string) {
-	_, err := os.Stat(filepath.Join(path))
+	_, err := os.Stat(path)
 	if err == nil {
 		log.Fatalf("File %s already exists", path)
 	}
@@ -43,7 +34,7 @@ func createSkeleton(day, year int) {
 		log.Fatalf("Invalid value for --year, must be 2015 or later, got %d", year)
 	}
 
-	rootDir := getRootDir()
+	rootDir := utils.GetCurrentDir()
 	targetDir := fmt.Sprintf("%s/%d/day%d", rootDir, year, day)
 
 	log.Printf(startMessagePrefix+" "+messageFormatString, year, day, targetDir)
