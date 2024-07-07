@@ -5,22 +5,28 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 	"strings"
+
+	"github.com/joho/godotenv"
 )
 
 const inputUrlTemplate = "https://adventofcode.com/%d/day/%d/input"
 
-// You must fill this value in with your session. To find it,
-// go to https://adventofcode.com/2023/day/1/input and look in
-// the cookie of the Get request.
-const session = "CHANGE ME"
-
 func GetInput(year, day int) string {
+	err := godotenv.Load(filepath.Join(GetCurrentDir(), `.env`))
+
+	if err != nil {
+		log.Fatal("Could not read .env file")
+	}
+
 	url := fmt.Sprintf(inputUrlTemplate, year, day)
 
 	client := &http.Client{}
 
 	req, err := http.NewRequest("GET", url, nil)
+
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -30,12 +36,13 @@ func GetInput(year, day int) string {
 
 	sessionCookie := http.Cookie{
 		Name:  "session",
-		Value: session,
+		Value: os.Getenv("SESSION"),
 	}
 
 	req.AddCookie(&sessionCookie)
 
 	resp, err := client.Do(req)
+
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -43,6 +50,7 @@ func GetInput(year, day int) string {
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
+
 	if err != nil {
 		log.Fatal(err)
 	}
