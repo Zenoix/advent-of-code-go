@@ -48,7 +48,7 @@ func createSkeleton(day, year int) {
 
 	log.Printf(startMessagePrefix+" "+messageFormatString, year, day, targetDir)
 
-	err := os.Mkdir(targetDir, 0750)
+	err := os.MkdirAll(targetDir, 0750)
 	if err != nil {
 		log.Fatal(err)
 	}
