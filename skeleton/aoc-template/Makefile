@@ -1,4 +1,4 @@
-DEFAULT_GOAL := run
+.DEFAULT_GOAL := run
 
 .PHONY: fmt vet run
 
@@ -8,5 +8,5 @@ fmt:
 vet: fmt
 	go vet ./...
 
-run:
+run: vet
 	go run .

@@ -1,4 +1,4 @@
-DEFAULT_GOAL := skeleton
+.DEFAULT_GOAL := skeleton
 .PHONY: skeleton
 
 skeleton:
