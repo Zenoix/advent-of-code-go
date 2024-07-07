@@ -3,10 +3,10 @@
 .PHONY: fmt vet run
 
 fmt:
-	go fmt ./...
+	@ go fmt ./...
 
 vet: fmt
-	go vet ./...
+	@ go vet ./...
 
 run: vet
-	go run .
+	@ go run .
