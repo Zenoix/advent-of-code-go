@@ -21,20 +21,20 @@ func main() {
 	fmt.Println("Part 2:", ans2)
 }
 
-func part1(inputType) int {
-	return -1
+func part1(input inputType) (ans int) {
+	return
 }
 
-func part2(inputType) int {
-	return -1
+func part2(input inputType) (ans int) {
+	return
 }
 
 func parseInput(input string) inputType {
-	ans := make([]string, 0, 2048)
+	parsed := make([]string, 0, 2048)
 
 	for _, line := range strings.Split(input, "\n") {
-		ans = append(ans, line)
+		parsed = append(parsed, line)
 	}
 
-	return ans
+	return parsed
 }
