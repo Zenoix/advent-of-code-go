@@ -29,14 +29,11 @@ func part1(input inputType) (ans int) {
 		lastFound := -1
 		for _, char := range line {
 			if unicode.IsDigit(char) {
-				literal, err := strconv.ParseUint(string(char), 10, 0)
-				if err != nil {
-					fmt.Println(err)
-				}
+				num := runeToInt(char)
 				if firstFound == -1 {
-					firstFound = int(literal)
+					firstFound = num
 				}
-				lastFound = int(literal)
+				lastFound = num
 			}
 		}
 		ans += firstFound*10 + lastFound
@@ -45,9 +42,59 @@ func part1(input inputType) (ans int) {
 }
 
 func part2(input inputType) (ans int) {
+	wordToNumber := map[string]int{
+		"zero":  0,
+		"one":   1,
+		"two":   2,
+		"three": 3,
+		"four":  4,
+		"five":  5,
+		"six":   6,
+		"seven": 7,
+		"eight": 8,
+		"nine":  9,
+	}
+
+	for _, line := range input {
+
+		firstFound := -1
+		lastFound := -1
+
+		for len(line) > 0 {
+			char := rune(line[0])
+			if unicode.IsDigit(char) {
+				num := runeToInt(char)
+				if firstFound == -1 {
+					firstFound = num
+				}
+				lastFound = num
+			} else {
+				for word, num := range wordToNumber {
+					if len(line) < len(word) || line[:len(word)] != word {
+						continue
+					}
+					if firstFound == -1 {
+						firstFound = num
+					}
+					lastFound = num
+				}
+			}
+			line = line[1:]
+		}
+		ans += firstFound*10 + lastFound
+	}
 	return
 }
 
 func parseInput(input string) inputType {
 	return strings.Split(input, "\n")
+}
+
+func runeToInt(r rune) int {
+	num, err := strconv.ParseUint(string(r), 10, 0)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	return int(num)
 }
