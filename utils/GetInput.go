@@ -25,7 +25,7 @@ func GetInput(year, day int) string {
 		log.Fatal(err)
 	}
 
-	userAgent := "https://github.com/Zenoix/advent-of-code-go/blob/main/utils/GetInput.go"
+	userAgent := "https://github.com/zenoix/advent-of-code-go/blob/main/utils/GetInput.go"
 	req.Header.Set("User-Agent", userAgent)
 
 	sessionCookie := http.Cookie{
