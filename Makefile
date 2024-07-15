@@ -1,3 +1,4 @@
+SHELL=/bin/bash
 .DEFAULT_GOAL := skeleton
 .PHONY: skeleton
 
